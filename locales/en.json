@@ -1,0 +1,8 @@
+{
+  "unauthorized": "Unauthorized request",
+  "SUCCESS": "Success",
+  "no_user_exist_with_this_id": "No user exist with this id",
+  "update_the_user": "The user was updated successfully",
+  "got_user": "Got the user successfully",
+  "got_all_users": "Got all users successfully"
+}

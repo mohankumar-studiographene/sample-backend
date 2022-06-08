@@ -1,0 +1,117 @@
+paths:
+  /user:
+    get:
+      tags:
+        - user
+      description: get all user
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: page
+          required: false
+        - in: query
+          name: size
+          required: false
+        - in: query
+          name: order
+          required: false
+      responses:
+        200:
+          description: got all users
+        400:
+          description: Bad request
+        500:
+          description: Server Error
+
+  /user/{id}:
+    get:
+      tags:
+        - user
+      description: get the user
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: false
+      responses:
+        200:
+          description: got the user
+        400:
+          description: Bad request
+        500:
+          description: Server Error
+
+    put:
+      tags:
+        - user
+      description: update the user
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: user all data
+          required: true
+          schema:
+            $ref: "#/definitions/userUpdateData"
+      responses:
+        200:
+          description: success
+        400:
+          description: Bad request
+        500:
+          description: Server Error
+
+  /user/create:
+    post:
+      tags:
+        - user
+      description: create the user
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: user all data
+          required: true
+          schema:
+            $ref: "#/definitions/userData"
+      responses:
+        200:
+          description: success
+        400:
+          description: Bad request
+        500:
+          description: Server Error
+
+
+definitions: # Schema defination for request body
+  userUpdateData:
+    properties:
+      id: 
+        type: string
+      email: 
+        type: string
+      firstName: 
+        type: string
+      lastName: 
+        type: string
+      dob: 
+        type: string
+      isVerified: 
+        type: boolean
+
+  userData:
+    properties:
+      email: 
+        type: string
+      firstName: 
+        type: string
+      lastName: 
+        type: string
+      dob: 
+        type: string
+      isVerified: 
+        type: boolean
