@@ -21,3 +21,4 @@ COPY ./mail-template ./mail-template
 COPY ./swagger-doc ./swagger-doc
 #Copy npm pacakges with prod flag
 RUN npm install --production
+CMD ["npm","run","start"]
