@@ -19,7 +19,7 @@ phases:
     commands:
       # - bash
       - echo Build started on `date`
-      - . ./variables.env
+      # - . ./variables.env
       - envsubst < variables.env > subst.env
       - cat subst.env
       # - envsubst < buildspec.yml
