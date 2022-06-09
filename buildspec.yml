@@ -19,7 +19,7 @@ phases:
       - echo Build started on `date`
       - envsubst < .env.example > .env
       - echo ${ENV}
-      - cat subst.env
+      - cat .env
       - source .env
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
