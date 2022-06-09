@@ -2,7 +2,8 @@ version: 0.2
 
 env:
   variables:
-    ENV: $NODE_ENV
+    # ENV: $NODE_ENV
+    NODE_ENV: DEV
 
 phases:
   pre_build:
@@ -16,11 +17,12 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - bash
+      # - bash
       - echo Build started on `date`
-      - cat buildspec.yml
       - . ./variables.env
-      - envsubst < buildspec.yml
+      - envsubst < variables.env > subst.env
+      - cat subst.env
+      # - envsubst < buildspec.yml
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
