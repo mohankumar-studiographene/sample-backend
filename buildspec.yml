@@ -1,8 +1,8 @@
 version: 0.2
 
-# env:
-#   variables:
-#     NODE_ENV: DEV
+env:
+  parameter-store:
+    key: "/sg/password/postgresql-db/admin"
 
 phases:
   pre_build:
@@ -16,8 +16,9 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - bash
+      # - bash
       - echo Build started on `date`
+      - export $key
       # - export NODE_ENV=development
       # - export SWAGGER_URL=localhost:3001
       # - export PORT=3001
@@ -31,7 +32,7 @@ phases:
       # - export TYPEORM_MIGRATIONS = dist/database/migration/*.js
       # - export TYPEORM_MIGRATIONS_DIR = dist/database/migration/*.js
       # - export JWT_SECRET=abc
-      - . ./source.env
+      # - . ./source.env
       - envsubst < variables.env > subst.env
       - cat subst.env
       - echo Building the Docker image...
