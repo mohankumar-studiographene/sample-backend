@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    NODE_ENV: "DEV"
+    export NODE_ENV: "DEV"
 
 phases:
   pre_build:
