@@ -19,7 +19,7 @@ phases:
       - echo Build started on `date`
       - #!/bin/bash
       - cat buildspec.yml
-      - source .env.example
+      - . .env.example
       - envsubst < buildspec.yml
       - echo ${ENV}
       - echo Building the Docker image...
