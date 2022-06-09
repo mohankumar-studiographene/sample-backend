@@ -1,8 +1,7 @@
 version: 0.2
 
 env:
-  variables:
-    export NODE_ENV: "DEV"
+  export NODE_ENV: "DEV"
 
 phases:
   pre_build:
@@ -17,7 +16,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - envsubst < .env.example > .env
+      - envsubst < .env.example > env
       - echo ${NODE_ENV}
       - cat .env
       - echo Building the Docker image...
