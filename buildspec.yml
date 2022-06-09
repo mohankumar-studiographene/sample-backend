@@ -1,5 +1,10 @@
 version: 0.2
 
+env:
+    variables:
+      NODE_ENV: "DEV"
+      
+
 phases:
   pre_build:
     commands:
@@ -13,6 +18,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - envsubst < .env.example > .env
+      - cat .env
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
