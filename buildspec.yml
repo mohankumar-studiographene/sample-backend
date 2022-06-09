@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Build started on `date`
       - envsubst < .env.example > subst.env
-      - echo ${NODE_ENV}
+      - echo ${ENV}
       - cat subst.env
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
