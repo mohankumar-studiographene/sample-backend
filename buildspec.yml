@@ -1,9 +1,8 @@
 version: 0.2
 
-env:
-  variables:
-    # ENV: $NODE_ENV
-    NODE_ENV: DEV
+# env:
+#   variables:
+#     NODE_ENV: DEV
 
 phases:
   pre_build:
@@ -17,12 +16,24 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      # - bash
+      - bash
       - echo Build started on `date`
-      # - . ./variables.env
+      # - export NODE_ENV=development
+      # - export SWAGGER_URL=localhost:3001
+      # - export PORT=3001
+      # - export TYPEORM_CONNECTION=postgres
+      # - export TYPEORM_HOST=
+      # - export TYPEORM_USERNAME=
+      # - export TYPEORM_PASSWORD=
+      # - export TYPEORM_DATABASE=
+      # - export TYPEORM_PORT=5432
+      # - export TYPEORM_LOGGING=1
+      # - export TYPEORM_MIGRATIONS = dist/database/migration/*.js
+      # - export TYPEORM_MIGRATIONS_DIR = dist/database/migration/*.js
+      # - export JWT_SECRET=abc
+      - . ./source.env
       - envsubst < variables.env > subst.env
       - cat subst.env
-      # - envsubst < buildspec.yml
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
