@@ -1,8 +1,8 @@
 version: 0.2
 
-# env:
-#   variables:
-#     export NODE_ENV: "DEV"
+env:
+  variables:
+    export NODE_ENV=DEV
 
 phases:
   pre_build:
@@ -17,7 +17,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - export NODE_ENV: DEV
       - envsubst < .env.example > .env
       - echo ${NODE_ENV}
       - cat .env
