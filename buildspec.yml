@@ -16,10 +16,10 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - echo Build started on `date`
       - #!/bin/bash
+      - echo Build started on `date`
       - cat buildspec.yml
-      - . .env.example
+      - source .env
       - envsubst < buildspec.yml
       - echo ${ENV}
       - echo Building the Docker image...
