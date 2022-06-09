@@ -19,7 +19,7 @@ phases:
       - bash
       - echo Build started on `date`
       - cat buildspec.yml
-      - . ./source.env
+      - . ./.env
       - envsubst < buildspec.yml
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
