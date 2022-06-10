@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     SWAGGER_URL: "localhost:3001"
-    PORT: "3001"
+    PORT: "80"
     TYPEORM_CONNECTION: "postgres"
     TYPEORM_PORT: "5432"
     TYPEORM_LOGGING: "1"
