@@ -8,7 +8,7 @@ env:
     TYPEORM_CONNECTION: "postgres"
     TYPEORM_HOST: "/sg/postgresql/db_endpoint"
     TYPEORM_USERNAME: "/sg/postgresql/db_username"
-    TYPEORM_PASSWORD: "/sg/postgresql-db/db_password"
+    TYPEORM_PASSWORD: "/sg/postgresql/db_password"
     TYPEORM_DATABASE: "/sg/postgresql/db_name"
     TYPEORM_PORT: "5432"
     TYPEORM_LOGGING: "1"
