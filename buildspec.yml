@@ -1,20 +1,22 @@
 version: 0.2
 
 env:
-  parameter-store:
+  variables:
     NODE_ENV: "DEV"
     SWAGGER_URL: "localhost:3001"
     PORT: "3001"
     TYPEORM_CONNECTION: "postgres"
-    TYPEORM_HOST: "/sg/postgresql/db_endpoint"
-    TYPEORM_USERNAME: "/sg/postgresql/db_username"
-    TYPEORM_PASSWORD: "/sg/postgresql/db_password"
-    TYPEORM_DATABASE: "/sg/postgresql/db_name"
     TYPEORM_PORT: "5432"
     TYPEORM_LOGGING: "1"
     TYPEORM_MIGRATIONS: "dist/database/migration/*.js"
     TYPEORM_MIGRATIONS_DIR: "dist/database/migration/*.js"
     JWT_SECRET: "abc"
+
+  parameter-store:
+    TYPEORM_HOST: "/sg/postgresql/db_endpoint"
+    TYPEORM_USERNAME: "/sg/postgresql/db_username"
+    TYPEORM_PASSWORD: "/sg/postgresql/db_password"
+    TYPEORM_DATABASE: "/sg/postgresql/db_name"
 
 phases:
   pre_build:
