@@ -1,22 +1,21 @@
 version: 0.2
 
 env:
-  # # variables:
-  # #   NODE_ENV: "DEV"
-  # #   SWAGGER_URL: "localhost:3001"
-  # #   PORT: "3001"
-  # #   TYPEORM_CONNECTION: "postgres"
-  # #   TYPEORM_PORT: "5432"
-  # #   TYPEORM_LOGGING: "1"
-  # #   TYPEORM_MIGRATIONS: "dist/database/migration/*.js"
-  # #   TYPEORM_MIGRATIONS_DIR: "dist/database/migration/*.js"
-  # #   JWT_SECRET: "abc"
+  variables:
+    SWAGGER_URL: "localhost:3001"
+    PORT: "3001"
+    TYPEORM_CONNECTION: "postgres"
+    TYPEORM_PORT: "5432"
+    TYPEORM_LOGGING: "1"
+    TYPEORM_MIGRATIONS: "dist/database/migration/*.js"
+    TYPEORM_MIGRATIONS_DIR: "dist/database/migration/*.js"
+    JWT_SECRET: "abc"
 
-  # parameter-store:
-  #   TYPEORM_HOST: "/sg/postgresql/db_endpoint"
-  #   TYPEORM_USERNAME: "/sg/postgresql/db_username"
-  #   TYPEORM_PASSWORD: "/sg/postgresql/db_password"
-  #   TYPEORM_DATABASE: "/sg/postgresql/db_name"
+  parameter-store:
+    TYPEORM_HOST: "/sg/postgresql/db_endpoint"
+    TYPEORM_USERNAME: "/sg/postgresql/db_username"
+    TYPEORM_PASSWORD: "/sg/postgresql/db_password"
+    TYPEORM_DATABASE: "/sg/postgresql/db_name"
 
 phases:
   pre_build:
@@ -28,27 +27,28 @@ phases:
       - echo Logging in to Docker Hub...
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+
+      - cp .env.example .env
+
+      - sed -i "s%_NODE_ENV_%${Environment}%" .env
+      - sed -i "s%_SWAGGER_URL_%${SWAGGER_URL}%" .env
+      - sed -i "s%_PORT_%${PORT}%" .env
+      - sed -i "s%_TYPEORM_CONNECTION_%${TYPEORM_CONNECTION}%" .env
+      - sed -i "s%_TYPEORM_PORT_%${TYPEORM_PORT}%" .env
+      - sed -i "s%_TYPEORM_LOGGING_%${TYPEORM_LOGGING}%" .env
+      - sed -i "s%_TYPEORM_MIGRATIONS_%${TYPEORM_MIGRATIONS}%" .env
+      - sed -i "s%_TYPEORM_MIGRATIONS_DIR_%${TYPEORM_MIGRATIONS_DIR}%" .env
+      - sed -i "s%_JWT_SECRET_%${JWT_SECRET}%" .env
+
+      - sed -i "s%_TYPEORM_HOST_%${TYPEORM_HOST}%" .env
+      - sed -i "s%_TYPEORM_USERNAME_%${TYPEORM_USERNAME}%" .env
+      - sed -i "s%_TYPEORM_PASSWORD_%${TYPEORM_PASSWORD}%" .env
+      - sed -i "s%_TYPEORM_DATABASE_%${TYPEORM_DATABASE}%" .env
+
   build:
     commands:
       - echo Build started on `date`
-
-      - export $NODE_ENV
-      - export $SWAGGER_URL
-      - export $PORT
-      - export $TYPEORM_CONNECTION
-      - export $TYPEORM_HOST
-      - export $TYPEORM_USERNAME
-      - export $TYPEORM_PASSWORD
-      - export $TYPEORM_DATABASE
-      - export $TYPEORM_PORT
-      - export $TYPEORM_LOGGING
-      - export $TYPEORM_MIGRATIONS
-      - export $TYPEORM_MIGRATIONS_DIR
-      - export $JWT_SECRET
-
-      - envsubst < variables.env > .env
       - cat .env
-
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
