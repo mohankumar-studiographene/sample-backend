@@ -22,3 +22,4 @@ COPY ./swagger-doc ./swagger-doc
 COPY .env .env
 #Copy npm pacakges with prod flag
 RUN npm install --production
+CMD ["npm","run","start"]
