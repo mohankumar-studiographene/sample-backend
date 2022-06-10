@@ -2,7 +2,19 @@ version: 0.2
 
 env:
   parameter-store:
-    key: "/sg/password/postgresql-db/admin"
+    NODE_ENV: "DEV"
+    SWAGGER_URL: "localhost:3001"
+    PORT: "3001"
+    TYPEORM_CONNECTION: "postgres"
+    TYPEORM_HOST: "/sg/postgresql/db_endpoint"
+    TYPEORM_USERNAME: "/sg/postgresql/db_username"
+    TYPEORM_PASSWORD: "/sg/postgresql-db/db_password"
+    TYPEORM_DATABASE: "/sg/postgresql/db_name"
+    TYPEORM_PORT: "5432"
+    TYPEORM_LOGGING: "1"
+    TYPEORM_MIGRATIONS: "dist/database/migration/*.js"
+    TYPEORM_MIGRATIONS_DIR: "dist/database/migration/*.js"
+    JWT_SECRET: "abc"
 
 phases:
   pre_build:
@@ -16,25 +28,25 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      # - bash
       - echo Build started on `date`
-      - export $key
-      # - export NODE_ENV=development
-      # - export SWAGGER_URL=localhost:3001
-      # - export PORT=3001
-      # - export TYPEORM_CONNECTION=postgres
-      # - export TYPEORM_HOST=
-      # - export TYPEORM_USERNAME=
-      # - export TYPEORM_PASSWORD=
-      # - export TYPEORM_DATABASE=
-      # - export TYPEORM_PORT=5432
-      # - export TYPEORM_LOGGING=1
-      # - export TYPEORM_MIGRATIONS = dist/database/migration/*.js
-      # - export TYPEORM_MIGRATIONS_DIR = dist/database/migration/*.js
-      # - export JWT_SECRET=abc
-      # - . ./source.env
-      - envsubst < variables.env > subst.env
-      - cat subst.env
+
+      - export $NODE_ENV
+      - export $SWAGGER_URL
+      - export $PORT
+      - export $TYPEORM_CONNECTION
+      - export $TYPEORM_HOST
+      - export $TYPEORM_USERNAME
+      - export $TYPEORM_PASSWORD
+      - export $TYPEORM_DATABASE
+      - export $TYPEORM_PORT
+      - export $TYPEORM_LOGGING
+      - export $TYPEORM_MIGRATIONS
+      - export $TYPEORM_MIGRATIONS_DIR
+      - export $JWT_SECRET
+
+      - envsubst < variables.env > .env
+      - cat .env
+
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
