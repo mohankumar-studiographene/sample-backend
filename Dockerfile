@@ -1,7 +1,7 @@
 #FROM node:lts-buster
 #Build step, on a heavier linux version.
 
-FROM node:14.15.3-buster as build
+FROM public.ecr.aws/docker/library/node:14.19.3-buster as build
 COPY . /var/app/sample-node-ts
 
 WORKDIR /var/app/sample-node-ts
@@ -9,7 +9,7 @@ RUN npm install
 RUN npm run build
 
 #lighter server image
-FROM node:14.15.3-alpine
+FROM public.ecr.aws/docker/library/node:14.19.3-alpine
 WORKDIR /var/app/sample-node-ts
 
 #Copy package.json
