@@ -7,7 +7,7 @@ services:
       dockerfile: dev/docker/Dockerfile
     command: npm run watch
     ports:
-      - "80:80"
+      - "3001:3001"
     networks:
       - sample-node-net
     volumes:
