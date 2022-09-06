@@ -6,6 +6,7 @@ COPY . /var/app/sample-node-ts
 
 WORKDIR /var/app/sample-node-ts
 RUN npm install
+RUN npm audit fix
 RUN npm run build
 
 #lighter server image
